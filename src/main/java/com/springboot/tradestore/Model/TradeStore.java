@@ -16,10 +16,9 @@ public class TradeStore {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TradeStore(Long id, String tradeId, int version, String counterParty, String bookId, Date maturityDate,
+	public TradeStore(String tradeId, int version, String counterParty, String bookId, Date maturityDate,
 			Date createdDate, String expired) {
 		super();
-		this.id = id;
 		this.tradeId = tradeId;
 		this.version = version;
 		this.counterParty = counterParty;
@@ -30,7 +29,7 @@ public class TradeStore {
 	}
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
 	private String tradeId;

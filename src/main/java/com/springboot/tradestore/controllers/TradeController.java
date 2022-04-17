@@ -60,13 +60,9 @@ public class TradeController {
 				if(output.contains(inputTrade)){
 					Optional<Trade> op = output.stream().filter(obj-> obj.getTradeId().equals(inputTrade.getTradeId())).findFirst();
 					Trade outputTrade = op.isPresent() ? op.get() : new Trade();
-					
 					if(isVersionValid(outputTrade,inputTrade)) {
 						output.add(inputTrade);
-					}else {
-						System.out.println("Version lower than previous received for tradeId :"+outputTrade.getTradeId());
 					}
-					
 				}
 				output.add(inputTrade);
 			}
@@ -97,6 +93,7 @@ public class TradeController {
 	
 	public boolean isVersionValid(Trade outputTrade,Trade inputTrade) {
 		if(outputTrade.getVersion()>inputTrade.getVersion()) {
+			System.out.println("Version lower than previous received for tradeId :"+outputTrade.getTradeId());
 			return false;
 		}return true;
 	}

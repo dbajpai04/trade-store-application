@@ -25,14 +25,22 @@ public class DemoData implements CommandLineRunner {
     	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
     	Calendar cal = Calendar.getInstance();
         Date currentDate = df.parse(df.format(cal.getTime()));
-    	tradeRepo.save(new Trade(1L,"T1",1,"CP-1","B1",df.parse("20/05/2022"),currentDate,"N"));
-        tradeRepo.save(new Trade(2L,"T2",2,"CP-2","B1",df.parse("20/05/2022"),currentDate,"N"));
-        tradeRepo.save(new Trade(3L,"T2",1,"CP-1","B1",df.parse("20/05/2022"),df.parse("14/03/2015"),"N"));
-        tradeRepo.save(new Trade(4L,"T3",3,"CP-3","B2",df.parse("20/05/2014"),currentDate,"Y"));
-        tradeRepo.save(new Trade(5L,"T4",1,"CP-1","B1",df.parse("20/05/2022"),currentDate,"N"));
-        tradeRepo.save(new Trade(6L,"T5",1,"CP-2","B1",df.parse("20/05/2024"),currentDate,"N"));
-        tradeRepo.save(new Trade(7L,"T6",1,"CP-1","B1",df.parse("20/05/2027"),df.parse("14/03/2015"),"N"));
-        tradeRepo.save(new Trade(8L,"T7",1,"CP-3","B2",df.parse("20/05/2012"),currentDate,"Y"));
+    	
+        //Below records would not be processed as maturity date(given in the problem statement) < current date
+        
+        tradeRepo.save(new Trade("T1",1,"CP-1","B1",df.parse("20/05/2020"),currentDate,"N"));
+        tradeRepo.save(new Trade("T2",2,"CP-2","B1",df.parse("20/05/2021"),currentDate,"N"));
+        tradeRepo.save(new Trade("T2",1,"CP-1","B1",df.parse("20/05/2021"),df.parse("14/03/2015"),"N"));
+        tradeRepo.save(new Trade("T3",3,"CP-3","B2",df.parse("20/05/2014"),currentDate,"Y"));
+       
+        // Inserting some valid records to process, as for above records maturity date<current date and as per condition-2 they shouldn't be processed.
+        
+        // T4 has two versions, Version 2 came first hence version 1 will not be processed.
+        tradeRepo.save(new Trade("T4",2,"CP-1","B1",df.parse("20/05/2022"),currentDate,"N"));
+        tradeRepo.save(new Trade("T4",1,"CP-1","B1",df.parse("20/05/2022"),df.parse("14/03/2015"),"N"));
+        
+        tradeRepo.save(new Trade("T5",1,"CP-2","B1",df.parse("20/05/2024"),currentDate,"N"));
+        tradeRepo.save(new Trade("T7",1,"CP-3","B2",df.parse("20/05/2012"),currentDate,"Y"));
         
         
     }
